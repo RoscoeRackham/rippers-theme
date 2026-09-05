@@ -5,7 +5,9 @@ register — near-black ground, blood-red accents, bone text — so the whole in
 matches the character sheet (`rippers-guise`) and the Stylish Action HUD theme
 (`rippers-stylish-hud`). **Look only:** no mechanics, no DOM/behaviour changes.
 
-> **STATUS: v0.1.1 — refined to Design's mockup** (the 6-panel spec). Window frame
+> **STATUS: v0.1.2 — refined to Design's mockup** (the 6-panel spec) + the live-eyeball
+> gold fixes (buttons in v0.1.1; settings-sidebar section headers / dividers / version
+> labels in v0.1.2). Window frame
 > (crown + bottom-right notch on the shell + flat red drop, Plex Mono caps title),
 > sidebar rail of detached squares, chat where only roll cards carry the red crown,
 > controls with Pirata verb buttons (primary red / quiet blood / disabled) and no

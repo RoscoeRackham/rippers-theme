@@ -269,6 +269,59 @@ html.rippers-theme .context-menu .context-item { color:var(--rt-bone-dim); font-
 html.rippers-theme #context-menu .context-item:hover,
 html.rippers-theme .context-menu .context-item:hover { background:rgba(200,16,42,.18); color:#fff; }
 
+/* ═══ Settings-sidebar section headers + dividers + version labels ════════════
+ * Live-eyeball fix (Austin, v0.1.1): Foundry's Settings tab renders its section
+ * headings ("GAME SETTINGS", "HELP AND DOCUMENTATION", "GAME ACCESS"), the divider
+ * rules under them, and the version/build labels ("Version 13 Stable", "Build
+ * Version", etc.) in its default GOLD/tan — a heading colour, not a button gradient,
+ * so the button/warm-ramp kill missed it. Neutralise the heading + divider + label
+ * colour to the register (mono-caps bone-dim headings, border-toned dividers). Core
+ * selectors only — the v13 settings sidebar is core chrome, no per-module targeting.
+ * Broad on purpose: making any surviving Foundry heading/divider gold read as
+ * cream/bone/border is on-register and cannot regress the theme. */
+html.rippers-theme #settings h1,
+html.rippers-theme #settings h2,
+html.rippers-theme #settings h3,
+html.rippers-theme #settings h4,
+html.rippers-theme #settings .divider,
+html.rippers-theme .settings-sidebar h1,
+html.rippers-theme .settings-sidebar h2,
+html.rippers-theme .settings-sidebar h3,
+html.rippers-theme .settings-sidebar h4,
+html.rippers-theme .settings-sidebar .divider,
+html.rippers-theme #sidebar section > h2,
+html.rippers-theme #sidebar section > h3,
+html.rippers-theme #sidebar section > header {
+	color:var(--rt-bone-dim);
+	font-family:var(--rt-mono);
+	font-weight:600;
+	letter-spacing:.12em;
+	text-transform:uppercase;
+}
+/* divider RULES under the headings — border, never gold */
+html.rippers-theme #settings .divider,
+html.rippers-theme .settings-sidebar .divider,
+html.rippers-theme h2.divider,
+html.rippers-theme h3.divider,
+html.rippers-theme .window-content hr,
+html.rippers-theme #sidebar hr {
+	border-color:var(--rt-border);
+	border-image:none;
+	background:none;
+	color:var(--rt-bone-dim);
+}
+/* version / build block + its labels (Build Version / system / Active Modules) */
+html.rippers-theme #settings .system-info,
+html.rippers-theme #settings .system-info *,
+html.rippers-theme #settings .info,
+html.rippers-theme #settings .build,
+html.rippers-theme #settings label,
+html.rippers-theme .settings-sidebar .system-info,
+html.rippers-theme .settings-sidebar label {
+	color:var(--rt-bone-dim);
+	font-family:var(--rt-mono);
+}
+
 /* generic tabs inside apps (not the sidebar rail) */
 html.rippers-theme .window-content .tabs .item { color:var(--rt-bone-dim); font-family:var(--rt-mono); letter-spacing:.06em; text-transform:uppercase; }
 html.rippers-theme .window-content .tabs .item.active { color:#fff; box-shadow:inset 0 -2px 0 var(--rt-red); }
