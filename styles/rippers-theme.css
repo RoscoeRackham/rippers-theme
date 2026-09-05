@@ -1,0 +1,361 @@
+/* Interim web-font load: the four 2a "Slash" faces from Google Fonts — the SAME
+   @import the sheet (rippers-guise) and the HUD theme (rippers-stylish-hud) use, so
+   all surfaces read as one. Local bundling is a deferred asset pass (flagged, as on the
+   sheet). @import MUST lead the file or the whole stylesheet is dropped. */
+@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Pirata+One&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* =============================================================================
+ * Rippers Unmasked — whole-app Foundry UI theme (v13/v14). LOOK ONLY.
+ * -----------------------------------------------------------------------------
+ * EVERYTHING is scoped under html.rippers-theme (the marker toggled by
+ * scripts/rippers-theme.mjs), so the theme is opt-in and vanishes cleanly when
+ * turned off. Tokens are the EXACT 2a "Slash" set from rippers-sheet.css /
+ * rippers-stylish-hud.css — not forked, re-declared here because ApplicationV2
+ * windows render OUTSIDE .rippers-sheet and don't inherit its --rs-* tokens.
+ *
+ * Strategy: (1) override core's own --color-* / --font-* variables so areas we
+ * don't hand-target still pick up the register; (2) targeted selectors for the
+ * slash motifs (red-topped panels, notch corners, Pirata chrome voice).
+ * This sheet lands in Foundry's `module` cascade layer, which sits after core's
+ * `applications`/`system` layers, so these rules win over core's own chrome CSS.
+ *
+ * REGISTER LAW: blood is the app register; VIOLET is reserved for Miasma / guise
+ * tags and is deliberately ABSENT from the chrome. Grenze = titles/names, Pirata =
+ * chrome voice (window titles, nav, tab labels), Plex Mono = controls/labels/
+ * numbers/body. (rippers-guise/styles/guise.css P5a ruling.)
+ *
+ * ⚠ SELECTOR PROVENANCE: the core-variable names are verified (foundryvtt.com/api +
+ * a shipping v13 theme). The per-element selectors below follow Foundry's known
+ * chrome structure but were NOT verified against a live v13 DOM this session (no
+ * Foundry installed). v13's ApplicationV2 overhaul restructured the sidebar, scene
+ * navigation, players list and hotbar and these churn v13→v14 — so a live install
+ * eyeball + selector fix-up pass is owed. Variable overrides carry the bulk even
+ * where a specific selector misses.
+ * ============================================================================= */
+
+html.rippers-theme {
+	/* ── 2a "Slash" tokens ── */
+	--rt-bg:#070405; --rt-panel:#0a0507; --rt-card:#120a0c; --rt-card2:#1a0e12;
+	--rt-border:#2b1d16; --rt-border-red:#4a1a22; --rt-red:#c8102a;
+	--rt-bone:#e8dccb; --rt-bone-dim:#c9b8a8; --rt-muted:#8a7568; --rt-gold:#c9a227;
+	--rt-disp:'Grenze Gotisch','Cinzel',Georgia,serif;
+	--rt-verb:'Pirata One','Grenze Gotisch',fantasy,serif;
+	--rt-mono:'IBM Plex Mono',ui-monospace,monospace;
+	--rt-body:'Spectral',Georgia,serif;
+	--rt-notch:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%);
+
+	/* ── override core Foundry variables (durable backbone) ── */
+	--color-text-emphatic:#fff;
+	--color-text-primary:var(--rt-bone);
+	--color-text-secondary:var(--rt-bone-dim);
+	--color-text-subtle:var(--rt-muted);
+	--color-text-dark:var(--rt-bone);
+	--color-text-light-highlight:#fff;
+	--color-text-hyperlink:var(--rt-red);
+	--color-primary:var(--rt-red);
+	--color-secondary:var(--rt-red);
+	--color-warm-1:var(--rt-red);
+	--color-border-primary:var(--rt-border);
+	--color-border-secondary:var(--rt-border);
+	--color-border-light-primary:var(--rt-border);
+	--color-border-light-secondary:var(--rt-border);
+	--color-border-light-tertiary:var(--rt-border);
+	--color-border-dark:var(--rt-border);
+	--color-tabs-border:var(--rt-red);
+	--color-shadow-primary:rgba(200,16,42,.4);
+	--color-shadow-dark:rgba(0,0,0,.65);
+	--color-scrollbar:var(--rt-border-red);
+	--color-scrollbar-track:#0a0507;
+	--background:var(--rt-panel);
+	--font-primary:var(--rt-mono);       /* controls / labels / body → Plex Mono (register) */
+	--font-body:var(--rt-body);
+	--font-h1:var(--rt-disp); --font-h2:var(--rt-disp); --font-h3:var(--rt-disp);
+	--color-cool-4:var(--rt-red); --color-cool-5:var(--rt-red);
+
+	color-scheme:dark;
+}
+
+/* ── global ground + scrollbars ─────────────────────────────────────────────── */
+html.rippers-theme body,
+html.rippers-theme #interface,
+html.rippers-theme.theme-light body,
+html.rippers-theme.theme-dark body {
+	color:var(--rt-bone);
+}
+html.rippers-theme ::-webkit-scrollbar { width:10px; height:10px; }
+html.rippers-theme ::-webkit-scrollbar-track { background:#0a0507; }
+html.rippers-theme ::-webkit-scrollbar-thumb { background:var(--rt-border-red); border:1px solid var(--rt-border); }
+html.rippers-theme ::-webkit-scrollbar-thumb:hover { background:var(--rt-red); }
+html.rippers-theme * { scrollbar-color:var(--rt-border-red) #0a0507; }
+
+/* ── application / window frames (AppV2 .application + AppV1 .window-app) ─────── */
+html.rippers-theme .application,
+html.rippers-theme .window-app {
+	background:var(--rt-bg);
+	border:1px solid var(--rt-border);
+	border-top:2px solid var(--rt-red);
+	box-shadow:0 20px 55px rgba(0,0,0,.6), 0 0 0 1px rgba(200,16,42,.08);
+	color:var(--rt-bone);
+}
+html.rippers-theme .window-app .window-content,
+html.rippers-theme .application .window-content {
+	background:var(--rt-bg);
+	color:var(--rt-bone);
+}
+/* window header + title → Pirata chrome voice */
+html.rippers-theme .window-app .window-header,
+html.rippers-theme .application .window-header {
+	background:rgba(7,4,5,.92);
+	border-bottom:1px solid var(--rt-border);
+	color:var(--rt-bone);
+}
+html.rippers-theme .window-header .window-title,
+html.rippers-theme .application .window-title {
+	font-family:var(--rt-verb);
+	font-weight:400;
+	letter-spacing:.02em;
+	font-size:1.15em;
+	color:var(--rt-bone);
+}
+html.rippers-theme .window-header a,
+html.rippers-theme .window-header .header-control { color:var(--rt-bone-dim); }
+html.rippers-theme .window-header a:hover,
+html.rippers-theme .window-header .header-control:hover { color:var(--rt-red); }
+
+/* headings inside apps → Grenze */
+html.rippers-theme .application h1,
+html.rippers-theme .application h2,
+html.rippers-theme .application h3,
+html.rippers-theme .window-content h1,
+html.rippers-theme .window-content h2,
+html.rippers-theme .window-content h3 {
+	font-family:var(--rt-disp);
+	font-weight:800;
+	line-height:1.3;
+	color:var(--rt-bone);
+}
+
+/* ── sidebar (#sidebar) + its tabs ──────────────────────────────────────────── */
+html.rippers-theme #sidebar,
+html.rippers-theme #sidebar-content,
+html.rippers-theme #ui-right {
+	background:var(--rt-bg);
+	border-left:1px solid var(--rt-border);
+	color:var(--rt-bone);
+}
+html.rippers-theme #sidebar-tabs,
+html.rippers-theme #sidebar nav.tabs,
+html.rippers-theme #sidebar .tabs {
+	background:var(--rt-panel);
+	border-bottom:2px solid var(--rt-red);
+}
+html.rippers-theme #sidebar-tabs .item,
+html.rippers-theme #sidebar-tabs a,
+html.rippers-theme #sidebar nav.tabs .item {
+	color:var(--rt-bone-dim);
+	border:none;
+}
+html.rippers-theme #sidebar-tabs .item.active,
+html.rippers-theme #sidebar-tabs a.active,
+html.rippers-theme #sidebar nav.tabs .item.active {
+	color:#fff;
+	box-shadow:inset 0 -2px 0 var(--rt-red);
+}
+html.rippers-theme #sidebar .directory-item,
+html.rippers-theme #sidebar .directory .directory-item {
+	background:var(--rt-panel);
+	border:1px solid var(--rt-border);
+	border-left:3px solid var(--rt-border-red);
+	color:var(--rt-bone-dim);
+}
+html.rippers-theme #sidebar .directory-item:hover { border-left-color:var(--rt-red); color:var(--rt-bone); }
+html.rippers-theme #sidebar .directory-item h3,
+html.rippers-theme #sidebar .directory-item h4 { font-family:var(--rt-disp); color:var(--rt-bone); }
+
+/* ── chat log + message cards ───────────────────────────────────────────────── */
+html.rippers-theme #chat-log,
+html.rippers-theme #chat,
+html.rippers-theme #chat-controls { background:var(--rt-bg); }
+html.rippers-theme .chat-message,
+html.rippers-theme #chat-log .message {
+	background:var(--rt-card);
+	border:1px solid var(--rt-border);
+	border-left:3px solid var(--rt-red);
+	clip-path:var(--rt-notch);
+	color:var(--rt-bone-dim);
+	margin:6px 4px;
+}
+html.rippers-theme .chat-message .message-header,
+html.rippers-theme .chat-message .message-sender {
+	font-family:var(--rt-disp);
+	font-weight:800;
+	color:var(--rt-bone);
+}
+html.rippers-theme .chat-message .message-metadata,
+html.rippers-theme .chat-message .whisper-to { font-family:var(--rt-mono); color:var(--rt-muted); font-size:.85em; }
+html.rippers-theme .dice-roll .dice-total {
+	background:var(--rt-red);
+	color:#fff;
+	border:1px solid var(--rt-border-red);
+	font-family:var(--rt-mono);
+}
+html.rippers-theme .dice-roll .dice-formula { background:#160c0f; color:var(--rt-bone-dim); font-family:var(--rt-mono); }
+
+/* ── scene controls (#controls) ─────────────────────────────────────────────── */
+html.rippers-theme #controls .control-tool,
+html.rippers-theme #controls .scene-control,
+html.rippers-theme #scene-controls .control {
+	background:var(--rt-panel);
+	border:1px solid var(--rt-border);
+	color:var(--rt-bone-dim);
+}
+html.rippers-theme #controls .control-tool:hover,
+html.rippers-theme #controls .scene-control:hover { border-color:var(--rt-red); color:var(--rt-bone); }
+html.rippers-theme #controls .control-tool.active,
+html.rippers-theme #controls .scene-control.active {
+	background:var(--rt-red);
+	border-color:var(--rt-red);
+	color:#fff;
+}
+
+/* ── scene navigation (#navigation) ─────────────────────────────────────────── */
+html.rippers-theme #navigation #nav-toggle,
+html.rippers-theme #navigation .nav-item,
+html.rippers-theme #scene-navigation .scene {
+	background:var(--rt-panel);
+	border:1px solid var(--rt-border);
+	color:var(--rt-bone-dim);
+	font-family:var(--rt-verb);
+	letter-spacing:.02em;
+}
+html.rippers-theme #navigation .nav-item:hover,
+html.rippers-theme #scene-navigation .scene:hover { border-color:var(--rt-red); color:var(--rt-bone); }
+html.rippers-theme #navigation .nav-item.active,
+html.rippers-theme #scene-navigation .scene.active {
+	border-color:var(--rt-red);
+	box-shadow:0 0 0 1px var(--rt-red), 6px 6px 0 rgba(200,16,42,.2);
+	color:#fff;
+}
+
+/* ── players list (#players) ─────────────────────────────────────────────────── */
+html.rippers-theme #players {
+	background:rgba(7,4,5,.9);
+	border:1px solid var(--rt-border);
+	border-top:2px solid var(--rt-red);
+	color:var(--rt-bone-dim);
+}
+html.rippers-theme #players h3,
+html.rippers-theme #players .players-mode { font-family:var(--rt-verb); color:var(--rt-bone); }
+html.rippers-theme #players .player-name { font-family:var(--rt-mono); color:var(--rt-bone-dim); }
+html.rippers-theme #players .player-active .player-name { color:var(--rt-bone); }
+
+/* ── hotbar / macro bar (#hotbar) ───────────────────────────────────────────── */
+html.rippers-theme #hotbar #action-bar,
+html.rippers-theme #hotbar .macro,
+html.rippers-theme #hotbar .slot {
+	background:var(--rt-panel);
+	border:1px solid var(--rt-border);
+	color:var(--rt-bone-dim);
+}
+html.rippers-theme #hotbar .macro:hover,
+html.rippers-theme #hotbar .slot:hover { border-color:var(--rt-red); }
+html.rippers-theme #hotbar .macro-key { font-family:var(--rt-mono); color:var(--rt-muted); }
+
+/* ── tooltips (#tooltip) ────────────────────────────────────────────────────── */
+html.rippers-theme #tooltip,
+html.rippers-theme .tooltip,
+html.rippers-theme .locked-tooltip {
+	background:var(--rt-card);
+	border:1px solid var(--rt-border);
+	border-top:2px solid var(--rt-red);
+	color:var(--rt-bone);
+	font-family:var(--rt-mono);
+	font-size:.85em;
+}
+
+/* ── context menu (#context-menu) ───────────────────────────────────────────── */
+html.rippers-theme #context-menu,
+html.rippers-theme .context-menu {
+	background:var(--rt-bg);
+	border:1px solid var(--rt-border);
+	border-top:2px solid var(--rt-red);
+	box-shadow:0 12px 30px rgba(0,0,0,.6);
+}
+html.rippers-theme #context-menu .context-item,
+html.rippers-theme .context-menu .context-item {
+	color:var(--rt-bone-dim);
+	font-family:var(--rt-mono);
+	border-top:1px solid var(--rt-border);
+}
+html.rippers-theme #context-menu .context-item:hover,
+html.rippers-theme .context-menu .context-item:hover { background:rgba(200,16,42,.18); color:#fff; }
+
+/* ── form controls: buttons / inputs / selects / textareas (global) ─────────── */
+html.rippers-theme button,
+html.rippers-theme .application button,
+html.rippers-theme input[type="submit"] {
+	background:var(--rt-card);
+	border:1px solid var(--rt-border);
+	border-left:3px solid var(--rt-red);
+	color:var(--rt-bone);
+	font-family:var(--rt-mono);
+	letter-spacing:.03em;
+	transition:background .12s, color .12s, border-color .12s, box-shadow .12s;
+}
+html.rippers-theme button:hover,
+html.rippers-theme .application button:hover {
+	background:#12080a; color:#fff; border-color:var(--rt-red);
+	box-shadow:3px 3px 0 rgba(200,16,42,.25);
+}
+html.rippers-theme button.bright,
+html.rippers-theme button[type="submit"].bright,
+html.rippers-theme .dialog-button.default button {
+	background:var(--rt-red); color:#fff; border-color:var(--rt-border-red);
+}
+html.rippers-theme input[type="text"],
+html.rippers-theme input[type="number"],
+html.rippers-theme input[type="password"],
+html.rippers-theme input[type="search"],
+html.rippers-theme select,
+html.rippers-theme textarea {
+	background:rgba(0,0,0,.30);
+	border:1px solid var(--rt-border);
+	color:var(--rt-bone);
+	font-family:var(--rt-mono);
+}
+html.rippers-theme input:focus,
+html.rippers-theme select:focus,
+html.rippers-theme textarea:focus {
+	border-color:var(--rt-red);
+	box-shadow:0 0 0 1px var(--rt-red);
+	outline:none;
+}
+html.rippers-theme input::placeholder,
+html.rippers-theme textarea::placeholder { color:var(--rt-muted); }
+html.rippers-theme a.content-link,
+html.rippers-theme a.inline-roll {
+	background:var(--rt-card2);
+	border:1px solid var(--rt-border);
+	color:var(--rt-bone);
+}
+html.rippers-theme a.content-link:hover,
+html.rippers-theme a.inline-roll:hover { border-color:var(--rt-red); color:#fff; }
+
+/* ── dialogs (a common .application; nudge the button row) ───────────────────── */
+html.rippers-theme .dialog .dialog-buttons { gap:8px; }
+html.rippers-theme .dialog .window-content { padding:14px 16px; }
+
+/* ── nav / tabs inside sheets (generic .tabs) ───────────────────────────────── */
+html.rippers-theme .application .tabs .item,
+html.rippers-theme .window-content .tabs .item {
+	color:var(--rt-bone-dim);
+	font-family:var(--rt-mono);
+	letter-spacing:.06em;
+	text-transform:uppercase;
+	font-size:.9em;
+}
+html.rippers-theme .application .tabs .item.active,
+html.rippers-theme .window-content .tabs .item.active {
+	color:#fff;
+	box-shadow:inset 0 -2px 0 var(--rt-red);
+}
