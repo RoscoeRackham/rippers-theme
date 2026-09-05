@@ -59,6 +59,7 @@ html.rippers-theme {
 	--color-tabs-border:var(--rt-red);
 	--color-shadow-primary:rgba(200,16,42,.35);
 	--color-shadow-dark:rgba(0,0,0,.65);
+	--color-shadow-highlight:rgba(200,16,42,.4);   /* was a gold interaction glow */
 	--color-scrollbar:var(--rt-blood);
 	--color-scrollbar-track:#0a0507;
 	--background:var(--rt-panel);
@@ -203,6 +204,33 @@ html.rippers-theme button.default:hover,
 html.rippers-theme button.bright:hover { background:#e01430; color:#fff; }
 html.rippers-theme button:disabled,
 html.rippers-theme button.disabled { color:var(--rt-muted); opacity:.45; box-shadow:none; }
+/* INTERACTION-STATE gold kill (live-eyeball): hover/focus/active/toggled were still gold.
+ * Cover every state — background-image:none kills the gradient, outline/box-shadow kill
+ * the gold ring, active/pressed goes to red fill. Core-only. */
+html.rippers-theme button:focus,
+html.rippers-theme button:focus-visible,
+html.rippers-theme .application button:focus,
+html.rippers-theme a.button:focus,
+html.rippers-theme [type="button"]:focus,
+html.rippers-theme [type="submit"]:focus,
+html.rippers-theme [type="reset"]:focus {
+	outline:none; border-color:var(--rt-red); box-shadow:none; background-image:none;
+}
+/* primary keeps its black drop even when focused */
+html.rippers-theme button[type="submit"]:focus,
+html.rippers-theme button.default:focus,
+html.rippers-theme button.bright:focus { box-shadow:3px 3px 0 rgba(0,0,0,.55); }
+/* active / pressed / toggled highlight => red fill, never gold */
+html.rippers-theme button:active,
+html.rippers-theme .application button:active,
+html.rippers-theme button.active,
+html.rippers-theme button.toggle.active,
+html.rippers-theme button[aria-pressed="true"],
+html.rippers-theme a.button.active,
+html.rippers-theme .control.active,
+html.rippers-theme .control.toggle.active {
+	background:var(--rt-red); background-image:none; color:#fff; border-color:var(--rt-blood); box-shadow:none;
+}
 /* inputs = near-black wells, hairline border; focus = red border, square, NO glow */
 html.rippers-theme input[type="text"],
 html.rippers-theme input[type="number"],
