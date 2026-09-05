@@ -307,16 +307,31 @@ html.rippers-theme .context-menu .context-item:hover { background:rgba(200,16,42
  * selectors only — the v13 settings sidebar is core chrome, no per-module targeting.
  * Broad on purpose: making any surviving Foundry heading/divider gold read as
  * cream/bone/border is on-register and cannot regress the theme. */
+/* v0.1.3 re-scope (Austin live-eyeball, Foundry v13 stable build 351): v0.1.2 still
+ * showed gold here. Confirmed against two shipping v13 themes (crlngn/crlngn-ui,
+ * Project FU theme-foundry.css): the section label is <h4 class="divider"> and its
+ * containers are #settings.sidebar-tab.settings-sidebar (GAME SETTINGS), .documentation
+ * (HELP AND DOCUMENTATION), .access (GAME ACCESS), .sidebar-info (version/build). The
+ * divider RULES flanking the caps are the h4's ::before / ::after BORDERS — NOT the
+ * element border, NOT <hr> — so v0.1.2's element-level border-color never reached them
+ * and the GOLD LINES survived, reading the whole header as gold. Fix: recolour the
+ * label TEXT (container selectors + a module-agnostic bare h4.divider backstop) AND the
+ * pseudo-element borders. */
 html.rippers-theme #settings h1,
 html.rippers-theme #settings h2,
 html.rippers-theme #settings h3,
 html.rippers-theme #settings h4,
-html.rippers-theme #settings .divider,
+html.rippers-theme #settings h4.divider,
 html.rippers-theme .settings-sidebar h1,
 html.rippers-theme .settings-sidebar h2,
 html.rippers-theme .settings-sidebar h3,
 html.rippers-theme .settings-sidebar h4,
-html.rippers-theme .settings-sidebar .divider,
+html.rippers-theme .settings-sidebar h4.divider,
+html.rippers-theme .sidebar-tab .documentation h4,
+html.rippers-theme .sidebar-tab .access h4,
+html.rippers-theme .documentation h4,
+html.rippers-theme .access h4,
+html.rippers-theme .sidebar-info h4,
 html.rippers-theme #sidebar section > h2,
 html.rippers-theme #sidebar section > h3,
 html.rippers-theme #sidebar section > header {
@@ -326,7 +341,29 @@ html.rippers-theme #sidebar section > header {
 	letter-spacing:.12em;
 	text-transform:uppercase;
 }
-/* divider RULES under the headings — border, never gold */
+/* Module-agnostic backstop: any module using Foundry's .divider section-header
+ * convention inherits the recolour. Colour ONLY here — do NOT restructure an unknown
+ * module's typography (graceful degradation). */
+html.rippers-theme h4.divider {
+	color:var(--rt-bone-dim);
+}
+/* THE ACTUAL GOLD: the divider rules are the h4's ::before / ::after borders. */
+html.rippers-theme h4.divider::before,
+html.rippers-theme h4.divider::after,
+html.rippers-theme #settings h4.divider::before,
+html.rippers-theme #settings h4.divider::after,
+html.rippers-theme .settings-sidebar h4.divider::before,
+html.rippers-theme .settings-sidebar h4.divider::after,
+html.rippers-theme .documentation h4.divider::before,
+html.rippers-theme .documentation h4.divider::after,
+html.rippers-theme .access h4.divider::before,
+html.rippers-theme .access h4.divider::after,
+html.rippers-theme .sidebar-info h4.divider::before,
+html.rippers-theme .sidebar-info h4.divider::after {
+	border-color:var(--rt-border);
+	background:none;
+}
+/* legacy element-level divider / <hr> — border, never gold */
 html.rippers-theme #settings .divider,
 html.rippers-theme .settings-sidebar .divider,
 html.rippers-theme h2.divider,
@@ -336,11 +373,12 @@ html.rippers-theme #sidebar hr {
 	border-color:var(--rt-border);
 	border-image:none;
 	background:none;
-	color:var(--rt-bone-dim);
 }
 /* version / build block + its labels (Build Version / system / Active Modules) */
 html.rippers-theme #settings .system-info,
 html.rippers-theme #settings .system-info *,
+html.rippers-theme .sidebar-info,
+html.rippers-theme .sidebar-info *,
 html.rippers-theme #settings .info,
 html.rippers-theme #settings .build,
 html.rippers-theme #settings label,
