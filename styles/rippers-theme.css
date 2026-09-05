@@ -347,20 +347,18 @@ html.rippers-theme #sidebar section > header {
 html.rippers-theme h4.divider {
 	color:var(--rt-bone-dim);
 }
-/* THE ACTUAL GOLD: the divider rules are the h4's ::before / ::after borders. */
+/* THE ACTUAL GOLD (v0.1.5 — live computed DOM from Foundry v13 build 351, via god):
+ * the divider rule is the h4's ::before / ::after BORDER-TOP-COLOR = #ee9b3a. It is set
+ * by Project FU's own theme-foundry.css, UNLAYERED — so it out-cascades our module-layer
+ * rule, which is why v0.1.3/0.1.4's border-color override never took. A scoped !important
+ * is sanctioned here (god): this is core/system chrome we deliberately target, NOT unknown
+ * module content, so the panel-06 no-!important guidance does not apply. The BARE selector
+ * matches every settings divider regardless of section (the real parent is
+ * section.settings.flexcol / .documentation / .access, not an #settings id). */
 html.rippers-theme h4.divider::before,
-html.rippers-theme h4.divider::after,
-html.rippers-theme #settings h4.divider::before,
-html.rippers-theme #settings h4.divider::after,
-html.rippers-theme .settings-sidebar h4.divider::before,
-html.rippers-theme .settings-sidebar h4.divider::after,
-html.rippers-theme .documentation h4.divider::before,
-html.rippers-theme .documentation h4.divider::after,
-html.rippers-theme .access h4.divider::before,
-html.rippers-theme .access h4.divider::after,
-html.rippers-theme .sidebar-info h4.divider::before,
-html.rippers-theme .sidebar-info h4.divider::after {
-	border-color:var(--rt-border);
+html.rippers-theme h4.divider::after {
+	border-color:var(--rt-border) !important;
+	border-top-color:var(--rt-border) !important;
 	background:none;
 }
 /* legacy element-level divider / <hr> — border, never gold */
