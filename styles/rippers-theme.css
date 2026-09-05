@@ -43,7 +43,7 @@ html.rippers-theme {
 	--color-text-subtle:var(--rt-muted);
 	--color-text-dark:var(--rt-cream);
 	--color-text-light-highlight:#fff;
-	--color-text-hyperlink:var(--rt-red);
+	--color-text-hyperlink:#e0344a;   /* UX audit: --rt-red #c8102a links = 3.4:1 (fails AA); #e0344a = 4.6:1 */
 	--color-text-accent:var(--rt-cream);        /* was gold-ish */
 	--color-primary:var(--rt-red);
 	--color-secondary:var(--rt-red);
