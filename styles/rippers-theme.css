@@ -389,3 +389,59 @@ html.rippers-theme .settings-sidebar label {
 /* generic tabs inside apps (not the sidebar rail) */
 html.rippers-theme .window-content .tabs .item { color:var(--rt-bone-dim); font-family:var(--rt-mono); letter-spacing:.06em; text-transform:uppercase; }
 html.rippers-theme .window-content .tabs .item.active { color:#fff; box-shadow:inset 0 -2px 0 var(--rt-red); }
+
+/* ═══ INTERMISSION PAUSE (v0.2.0) — lowered curtain + stopped pocket watch ═══
+   Design of record: ui_kits/unmasked-surfaces/pause-screen (Austin-approved). Replaces
+   Foundry's stock pause (spinner + GAME PAUSED). Austin ruled: text 'Intermission' ONLY —
+   no rotation set, no 'THE TABLE IS AT REST' divider. Quiet by design (sits for minutes):
+   period props, no spinner, no motion. Shown only when the theme is on AND the game is
+   paused (JS adds #rt-pause.on); the stock pause is hidden under the theme. */
+html.rippers-theme #pause { display: none !important; }
+#rt-pause {
+	--p-red: #c8102a; --p-blood: #4a1a22; --p-cream: #e8dccb; --p-bone: #c9b8a8;
+	--p-verb: 'Pirata One', 'Grenze Gotisch', serif;
+	position: fixed; inset: 0; z-index: 70; display: none; pointer-events: none; overflow: hidden;
+}
+#rt-pause.on { display: block; }
+#rt-pause .rt-pause-scrim { position: absolute; inset: 0;
+	background: radial-gradient(ellipse at 50% 46%, rgba(7,4,5,.62) 0%, rgba(7,4,5,.9) 70%, #070405 100%); }
+/* the lowered curtain — valance, two drapes, seam, rope + tassel */
+#rt-pause .rt-pause-valance { position: absolute; top: 0; left: 0; right: 0; height: 66px;
+	background: linear-gradient(#1a0a0d, #0e0508); border-bottom: 2px solid var(--p-blood);
+	box-shadow: 0 6px 22px rgba(0,0,0,.7); }
+#rt-pause .rt-pause-valance::after { content: ''; position: absolute; left: 0; right: 0; bottom: -13px; height: 14px;
+	background: repeating-linear-gradient(90deg, #1a0a0d 0 26px, transparent 26px 52px);
+	-webkit-mask-image: radial-gradient(13px 14px at 13px 0, #000 98%, transparent 100%);
+	mask-image: radial-gradient(13px 14px at 13px 0, #000 98%, transparent 100%);
+	-webkit-mask-repeat: repeat-x; mask-repeat: repeat-x; -webkit-mask-size: 26px 14px; mask-size: 26px 14px; }
+#rt-pause .rt-pause-drape { position: absolute; top: 64px; bottom: 0; width: 50.6%;
+	background: repeating-linear-gradient(90deg, #150709 0 16px, #220d11 16px 30px, #0d0406 30px 46px);
+	box-shadow: inset 0 40px 90px rgba(0,0,0,.7); }
+#rt-pause .rt-pause-drape.l { left: 0; }
+#rt-pause .rt-pause-drape.r { right: 0; }
+#rt-pause .rt-pause-seam { position: absolute; top: 64px; bottom: 0; left: 50%; width: 3px; transform: translateX(-50%);
+	background: linear-gradient(rgba(200,16,42,.55), rgba(200,16,42,.06)); box-shadow: 0 0 24px rgba(200,16,42,.35); }
+#rt-pause .rt-pause-rope { position: absolute; top: 64px; left: 50%; transform: translateX(-50%); width: 1px; height: 150px; background: var(--p-blood); }
+#rt-pause .rt-pause-tassel { position: absolute; top: 210px; left: 50%; transform: translateX(-50%); width: 16px; height: 16px; border-radius: 50%;
+	background: radial-gradient(circle at 35% 30%, #c9a227, #5d4a10 75%); box-shadow: 0 2px 6px rgba(0,0,0,.6); }
+/* centre plate: the stopped pocket watch + the one line */
+#rt-pause .rt-pause-plate { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 520px; text-align: center; }
+#rt-pause .rt-pause-watch { width: 118px; height: 118px; margin: 0 auto 20px; position: relative; }
+#rt-pause .rt-pause-watch .bow { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); width: 22px; height: 16px;
+	border: 3px solid #8d7a44; border-bottom: none; border-radius: 11px 11px 0 0; }
+#rt-pause .rt-pause-watch .case { position: absolute; inset: 0; border-radius: 50%;
+	background: radial-gradient(circle at 34% 28%, #d8bd6a, #8d7a44 62%, #4a3d1e);
+	box-shadow: 0 6px 0 rgba(0,0,0,.55), inset 0 0 0 3px rgba(0,0,0,.35); }
+#rt-pause .rt-pause-watch .face { position: absolute; inset: 10px; border-radius: 50%;
+	background: radial-gradient(circle at 40% 32%, #efe6d2, #cdbfa5 70%, #a9997c); box-shadow: inset 0 0 10px rgba(60,40,20,.5); }
+#rt-pause .rt-pause-watch .wtick { position: absolute; left: 50%; top: 6px; width: 2px; height: 8px; background: rgba(40,24,12,.75); transform-origin: 50% 47px; }
+#rt-pause .rt-pause-watch .hand { position: absolute; left: 50%; bottom: 50%; width: 3px; background: #2a1a0c; transform-origin: 50% 100%; border-radius: 2px; }
+#rt-pause .rt-pause-watch .hand.h { height: 26px; transform: translateX(-50%) rotate(-58deg); } /* stopped: a quarter to midnight */
+#rt-pause .rt-pause-watch .hand.m { height: 38px; transform: translateX(-50%) rotate(-78deg); }
+#rt-pause .rt-pause-watch .pin { position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; background: #2a1a0c; }
+#rt-pause .rt-pause-watch .crack { position: absolute; inset: 10px; border-radius: 50%; pointer-events: none;
+	background: linear-gradient(118deg, transparent 46%, rgba(60,40,20,.55) 46.6%, transparent 47.6%); }
+#rt-pause .rt-pause-line { font-family: var(--p-verb); font-weight: 400; font-size: 52px; line-height: 1.15; color: #fff; margin: 0;
+	text-shadow: 4px 4px 0 var(--p-blood), 0 0 34px rgba(200,16,42,.28); }
+#rt-pause .rt-pause-sub { font-family: var(--rt-body, 'Spectral', Georgia, serif); font-style: italic; font-size: 16px;
+	line-height: 1.6; color: var(--p-bone); margin: 12px 0 0; }
