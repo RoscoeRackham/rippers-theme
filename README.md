@@ -5,12 +5,12 @@ register — near-black ground, blood-red accents, bone text — so the whole in
 matches the character sheet (`rippers-guise`) and the Stylish Action HUD theme
 (`rippers-stylish-hud`). **Look only:** no mechanics, no DOM/behaviour changes.
 
-> **STATUS: scaffold-and-hold.** The technical scaffold is in place — the module,
-> the toggle, the token/font layer, the core `--color-*`/`--font-*` variable backbone,
-> the generic window frame, and a legible token-level base for the core surfaces. The
-> detailed per-surface **visual treatment** (accent placement, chat-card composition,
-> frame styling weight, slash/notch motifs) is **held** until Design's mockup lands,
-> then built onto this base — not designed twice.
+> **STATUS: v0.1.1 — refined to Design's mockup** (the 6-panel spec). Window frame
+> (crown + bottom-right notch on the shell + flat red drop, Plex Mono caps title),
+> sidebar rail of detached squares, chat where only roll cards carry the red crown,
+> controls with Pirata verb buttons (primary red / quiet blood / disabled) and no
+> default gold, and the one-structural-red-per-surface accent budget. Fonts are now
+> **bundled** (no external fetch). Still owed: the live-install eyeball selector fix-up.
 
 ## Turning it on
 
@@ -66,10 +66,9 @@ module clashes.
   future core `exceptions`-layer rule could still beat a given selector.
 - Interface Scale / Font Size / Interface Fading are core settings — the theme is built
   to survive when a user changes them; confirm on install.
-- **Fonts** load via a Google-Fonts `@import` (the same interim approach as the sheet and
-  HUD theme); local bundling is a deferred asset pass. Requires the client to be online.
-  ⚠ The design brief asks for **bundled** faces (no external fetch) — bundling woff2 +
-  `@font-face` is an owed step, best done in the build-to-mockup pass.
+- **Fonts** are **bundled** as local woff2 (`fonts/*.woff2`, `@font-face` in `styles/fonts.css`,
+  loaded first via `module.json`) — no external fetch, works offline. The four OFL faces
+  (Grenze Gotisch, IBM Plex Mono, Pirata One, Spectral) are free to redistribute.
 - **No core theme-picker entry.** Foundry v13/v14 exposes no API to register a named
   theme into the core Color Scheme dropdown (`CONST.CSS_THEMES` is frozen). This ships
   as a toggleable module setting instead — same opt-in behaviour, different location.
