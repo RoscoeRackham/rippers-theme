@@ -1,0 +1,12 @@
+/* Bundled 2a "Slash" faces (woff2). From Google Fonts (OFL — free to bundle).
+   Replaces the interim @import; loaded first via module.json styles[]. */
+@font-face{font-family:'Grenze Gotisch';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/grenzegotisch-700.woff2') format('woff2')}
+@font-face{font-family:'Grenze Gotisch';font-style:normal;font-weight:800;font-display:swap;src:url('../fonts/grenzegotisch-800.woff2') format('woff2')}
+@font-face{font-family:'Grenze Gotisch';font-style:normal;font-weight:900;font-display:swap;src:url('../fonts/grenzegotisch-900.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/ibmplexmono-400.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/ibmplexmono-500.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/ibmplexmono-600.woff2') format('woff2')}
+@font-face{font-family:'Pirata One';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/pirataone-400.woff2') format('woff2')}
+@font-face{font-family:'Spectral';font-style:italic;font-weight:400;font-display:swap;src:url('../fonts/spectral-400i.woff2') format('woff2')}
+@font-face{font-family:'Spectral';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/spectral-400.woff2') format('woff2')}
+@font-face{font-family:'Spectral';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/spectral-600.woff2') format('woff2')}
