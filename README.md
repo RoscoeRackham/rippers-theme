@@ -5,6 +5,13 @@ register — near-black ground, blood-red accents, bone text — so the whole in
 matches the character sheet (`rippers-guise`) and the Stylish Action HUD theme
 (`rippers-stylish-hud`). **Look only:** no mechanics, no DOM/behaviour changes.
 
+> **STATUS: scaffold-and-hold.** The technical scaffold is in place — the module,
+> the toggle, the token/font layer, the core `--color-*`/`--font-*` variable backbone,
+> the generic window frame, and a legible token-level base for the core surfaces. The
+> detailed per-surface **visual treatment** (accent placement, chat-card composition,
+> frame styling weight, slash/notch motifs) is **held** until Design's mockup lands,
+> then built onto this base — not designed twice.
+
 ## Turning it on
 
 Configure Settings ▸ **Module Settings** ▸ *Rippers Unmasked theme* (a checkbox).
@@ -26,10 +33,25 @@ the players list, the hotbar/macro bar, tooltips, context menus, and form contro
 (buttons/inputs/selects/textareas) globally.
 
 The backbone is an override of Foundry's own `--color-*` / `--font-*` CSS variables
-(so areas not hand-targeted still pick up the register), plus targeted selectors for
-the slash motifs. Type: Grenze Gotisch (titles/names), Pirata One (chrome voice —
-window titles, nav, tabs), IBM Plex Mono (controls/labels/numbers/body). **Violet is
+(so areas not hand-targeted still pick up the register), plus the generic window frame.
+Type: Grenze Gotisch (titles/names), Pirata One (chrome voice — window titles, nav,
+tabs), IBM Plex Mono (controls/labels/numbers/body), Spectral (prose). **Violet is
 deliberately absent** — it is reserved for Miasma / guise tags per the canon register.
+
+## Built for any number of modules
+
+The user may run arbitrary third-party modules. This theme therefore works through
+Foundry **core selectors + CSS custom properties**, never a specific module's ids —
+so anything that respects the core classes/variables picks up the register for free.
+The **generic window frame** (`.application`/`.window-app`) is the highest-leverage
+surface: every dialog, sheet, and module window is themed without knowing the module.
+It assumes no fixed set of sidebar tabs or count of apps/windows.
+
+**Graceful degradation:** rules set only colour / background / border / font — never
+width, position, display, or `clip-path` on generic frames — so an unknown module's
+custom UI that ignores core classes stays **functional and legible** even when not
+fully themed. It under-reaches rather than breaks; the toggle is the fall-back if a
+module clashes.
 
 ## Known upkeep risk (Austin is aware)
 
@@ -46,6 +68,11 @@ deliberately absent** — it is reserved for Miasma / guise tags per the canon r
   to survive when a user changes them; confirm on install.
 - **Fonts** load via a Google-Fonts `@import` (the same interim approach as the sheet and
   HUD theme); local bundling is a deferred asset pass. Requires the client to be online.
+  ⚠ The design brief asks for **bundled** faces (no external fetch) — bundling woff2 +
+  `@font-face` is an owed step, best done in the build-to-mockup pass.
+- **No core theme-picker entry.** Foundry v13/v14 exposes no API to register a named
+  theme into the core Color Scheme dropdown (`CONST.CSS_THEMES` is frozen). This ships
+  as a toggleable module setting instead — same opt-in behaviour, different location.
 
 ## Files
 
